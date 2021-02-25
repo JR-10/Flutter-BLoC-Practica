@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:platzi_bloc_practica/description_place.dart';
-import 'package:platzi_bloc_practica/header_appbar.dart';
-import 'package:platzi_bloc_practica/review_list.dart';
+import 'package:platzi_bloc_practica/Place/ui/widgets/description_place.dart';
+import 'package:platzi_bloc_practica/Place/ui/screens/header_appbar.dart';
+import 'package:platzi_bloc_practica/Place/ui/widgets/review_list.dart';
 
 class HomeTrips extends StatelessWidget {
   String descriptionDummy =
