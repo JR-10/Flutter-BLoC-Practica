@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
+import 'package:platzi_bloc_practica/User/ui/screens/inicio_sesion.dart';
 import 'platzi_trips.dart';
 import 'platzi_trips_cupertino.dart';
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: PlatziTripsCupertino(),
+          // home: PlatziTripsCupertino(),
+          home: InicioSesion(),
         ),
         bloc: UserBloc());
   }
