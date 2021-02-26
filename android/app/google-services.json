@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "12053166903",
+    "project_id": "platziflutter-68d2e",
+    "storage_bucket": "platziflutter-68d2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12053166903:android:5e812a402193360afff8b2",
+        "android_client_info": {
+          "package_name": "com.example.platzi_bloc_practica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12053166903-kf0arlr8ksbcp5vf8a9tc11si9feufkp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.platzi_bloc_practica",
+            "certificate_hash": "b69491c78bd29a72cb2cf88ad62f13f0909cb288"
+          }
+        },
+        {
+          "client_id": "12053166903-i4dn3ufrc4gpkp43c3u13j0lriaf9gie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLmyBvvKXyNuyS_uobxmMaDSj5lXDBwtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12053166903-i4dn3ufrc4gpkp43c3u13j0lriaf9gie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
