@@ -23,6 +23,7 @@ class _InicioSesionState extends State<InicioSesion> {
     // ************   Instanciar objeto userbloc ****************
     // of.(context) => contiene el ciclo  o estado de vida de la aplicacioon
     userBloc = BlocProvider.of(context);
+    print('valor de userBloc en el inicio de sesion: $userBloc');
     return _handleCurrentSession();
   }
 
@@ -34,7 +35,7 @@ class _InicioSesionState extends State<InicioSesion> {
       // el (snapshot => contiene los datos traidos de la sesion, osea el objeto User desde Firebase)
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         // *** Valida si el objeto snapshot viene vacio o tiene un error no deja entrar
-        if (snapshot.hasData || snapshot.hasError) {
+        if (!snapshot.hasData || snapshot.hasError) {
           return singInGoogleUI();
           // si trae la data correcta de la sesion permite ingresar a la vista de home
         } else {
@@ -64,9 +65,10 @@ class _InicioSesionState extends State<InicioSesion> {
               ButtonGreen(
                 text: "Inicio Sesion Gmail",
                 onPressed: () {
+                  userBloc.signOut();
                   userBloc
                       .signIn()
-                      .then((User user) => print("El usuario es  ${user}"));
+                      .then((User user) => print("El usuario es  $user"));
                 },
                 ancho: 300.0,
                 alto: 50.0,

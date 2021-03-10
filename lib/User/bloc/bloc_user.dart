@@ -1,4 +1,5 @@
-// desd eeste archivo se hara el llamado a las repository
+// desde este archivo se hara el llamado a las repository
+// La responsabilidad de este archivo es manejar todos los casos de uso del Usuario
 
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
@@ -19,6 +20,11 @@ class UserBloc implements Bloc {
   // 1 = SignIn con Google
   Future<User> signIn() {
     return _auth_repository.signInFirebase();
+  }
+
+  // Elecutar signOut
+  signOut() {
+    _auth_repository.signOut();
   }
 
   @override

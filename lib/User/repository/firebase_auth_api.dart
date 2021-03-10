@@ -12,6 +12,7 @@ class FirebaseAuthAPI {
   // variable que contiene la instancia de google SingIn
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  // *************** Metodo para el Inicio de Sesion *****************
   Future<User> currentUser() async {
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
@@ -23,6 +24,15 @@ class FirebaseAuthAPI {
     User user = authResult.user;
 
     return user;
+  }
+
+  // *************** Metodo para el Cierre de Sesion *****************
+  signOut() async {
+    await _auth.signOut().then((value) => print("Sesion Cerrada"));
+
+    // cerrar sesion en google google
+    googleSignIn.signOut();
+    print('Sesiones Cerradas');
   }
 
   /*
