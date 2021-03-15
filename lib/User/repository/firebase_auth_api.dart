@@ -17,6 +17,7 @@ class FirebaseAuthAPI {
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
 
+    // obtener las credeciales de la cuenta con que nos registramos
     GoogleAuthCredential credential = GoogleAuthProvider.credential(
         idToken: gSA.idToken, accessToken: gSA.accessToken);
 
@@ -34,25 +35,4 @@ class FirebaseAuthAPI {
     googleSignIn.signOut();
     print('Sesiones Cerradas');
   }
-
-  /*
-  // *************** creacion del metodo **********************
-  // se coloca (asUync) por que esta ejecutando una conexion en segundo plano
-  Future<FirebaseUser> SignIn() async {
-    // *********************  autenticacion con Google *************************
-
-    // abrir caja de dialogo cuando orimimos el boton de iniciar sesion
-    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-
-    // obtener las credeciales de la cuenta con que nos registramos
-    GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
-
-    // **********************  autenticacion con Firebase ***************
-    // FirebaseUser user = await _auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken: gSA.idToken, accessToken: gSA.accessToken));
-    FirebaseUser user = await _auth.signInWithCredential(
-        GoogleAuthProvider.credential(
-            idToken: gSA.idToken, accessToken: gSA.accessToken));
-
-    return user;
-  }*/
 }
