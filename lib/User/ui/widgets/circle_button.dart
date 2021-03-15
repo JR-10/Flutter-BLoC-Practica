@@ -8,7 +8,7 @@ class CircleButton extends StatefulWidget {
   double iconSize;
   var color;
 
-// onpressed se hace ob;igatorio
+// onpressed se hace obligatorio
   CircleButton(this.mini, this.icon, this.iconSize, this.color,
       @required this.onPressed);
 
