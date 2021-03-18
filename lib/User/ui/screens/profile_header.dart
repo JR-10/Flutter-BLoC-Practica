@@ -46,7 +46,7 @@ class ProfileHeader extends StatelessWidget {
         child: Column(
           children: <Widget>[
             CircularProgressIndicator(),
-            Text("NO se pudo cargar la informacion, Haz login")
+            Text("No se pudo cargar la informacion, Haz login")
           ],
         ),
       );

@@ -22,7 +22,7 @@ class UserBloc implements Bloc {
     return _auth_repository.signInFirebase();
   }
 
-  // Elecutar signOut
+  // cerrar sesion Elecutar signOut
   signOut() {
     _auth_repository.signOut();
   }

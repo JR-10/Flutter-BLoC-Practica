@@ -4,7 +4,6 @@ import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
 import 'package:platzi_bloc_practica/Widgets/button_green.dart';
 import 'package:platzi_bloc_practica/Widgets/gradient_back.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:platzi_bloc_practica/platzi_trips.dart';
 import 'package:platzi_bloc_practica/platzi_trips_cupertino.dart';
 
 class InicioSesion extends StatefulWidget {

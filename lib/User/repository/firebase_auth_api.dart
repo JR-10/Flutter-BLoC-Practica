@@ -14,8 +14,14 @@ class FirebaseAuthAPI {
 
   // *************** Metodo para el Inicio de Sesion *****************
   Future<User> currentUser() async {
+    print('Entro al metodo de obtener cuenta');
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+    print('Valor @@@@@@@@: $googleSignInAccount');
+
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
+
+    print('Valor del los datos obtenidos: $gSA');
 
     // obtener las credeciales de la cuenta con que nos registramos
     GoogleAuthCredential credential = GoogleAuthProvider.credential(
