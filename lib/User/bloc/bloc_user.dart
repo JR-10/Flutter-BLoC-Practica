@@ -2,8 +2,10 @@
 // La responsabilidad de este archivo es manejar todos los casos de uso del Usuario
 
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:platzi_bloc_practica/User/repository/cloud_firestore_repository.dart';
 
 class UserBloc implements Bloc {
   // ******* declaracion de variable para llamar al metodo SignIn *******
@@ -21,6 +23,11 @@ class UserBloc implements Bloc {
   Future<User> signIn() {
     return _auth_repository.signInFirebase();
   }
+
+  // 2 = Registrar Usuario en BD
+  final _cloudFirestoreRepository = CloudFirestoreRepository();
+  void updateUserData(Usuario usuario) =>
+      _cloudFirestoreRepository.updateUserDataFirestore(usuario);
 
   // cerrar sesion Elecutar signOut
   signOut() {

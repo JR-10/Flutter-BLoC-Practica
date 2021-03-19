@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
+import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/Widgets/button_green.dart';
 import 'package:platzi_bloc_practica/Widgets/gradient_back.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,9 +66,14 @@ class _InicioSesionState extends State<InicioSesion> {
                 text: "Inicio Sesion Gmail",
                 onPressed: () {
                   userBloc.signOut();
-                  userBloc
-                      .signIn()
-                      .then((User user) => print("El usuario es  $user"));
+                  userBloc.signIn().then((User user) => {
+                        // Actuizar datos al iniciar sesion
+                        userBloc.updateUserData(Usuario(
+                            uid: user.uid,
+                            name: user.displayName,
+                            email: user.email,
+                            photoUrl: user.photoURL))
+                      });
                 },
                 ancho: 300.0,
                 alto: 50.0,

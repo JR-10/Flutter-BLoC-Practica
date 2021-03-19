@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
-import 'package:platzi_bloc_practica/User/model/user.dart';
+import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import '../widgets/user_info.dart';
 import '../widgets/button_bar.dart';
 
 class ProfileHeader extends StatelessWidget {
   // declaracion de variable que me trae los valores de la sesion
   UserBloc userBloc;
-  User user;
+  Usuario usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ProfileHeader extends StatelessWidget {
       print(snapshot.data);
 
       // datos de la sesion
-      user = User(
+      usuario = Usuario(
           name: snapshot.data.displayName,
           email: snapshot.data.email,
           photoUrl: snapshot.data.photoURL);
@@ -75,7 +75,7 @@ class ProfileHeader extends StatelessWidget {
             Row(
               children: <Widget>[title],
             ),
-            UserInfo(user),
+            UserInfo(usuario),
             ButtonsBar()
           ],
         ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:platzi_bloc_practica/User/model/user.dart';
+import 'package:platzi_bloc_practica/User/model/usuario.dart';
 
 class UserInfo extends StatelessWidget {
   // llamado al modelo
-  User user;
+  Usuario usuario;
 
-  UserInfo(@required this.user);
+  UserInfo(@required this.usuario);
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +20,21 @@ class UserInfo extends StatelessWidget {
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                    user.photoUrl) // image: AssetImage(user.photoUrl))),
+                    usuario.photoUrl) // image: AssetImage(user.photoUrl))),
                 )));
     final userInfo = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
             margin: EdgeInsets.only(bottom: 5.0),
-            child: Text(user.name,
+            child: Text(usuario.name,
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontFamily: 'Lato',
                 ))),
-        Text(user.email,
+        Text(usuario.email,
             style: TextStyle(
                 fontSize: 15.0, color: Colors.white30, fontFamily: 'Lato')),
       ],
