@@ -23,6 +23,7 @@ class CloudFirestoreAPI {
       'name': usuario.name,
       'email': usuario.email,
       'photoURL': usuario.photoUrl,
+      'state': true,
       'myPlaces': usuario.myPlaces,
       'myFavoritePlaces': usuario.myFavoritePlaces,
       'lastSignIn': DateTime.now()

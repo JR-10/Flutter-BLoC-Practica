@@ -17,9 +17,12 @@ class InicioSesion extends StatefulWidget {
 class _InicioSesionState extends State<InicioSesion> {
   // declaracion del objeto UserBloc
   UserBloc userBloc;
+  double anchoPantalla;
 
   @override
   Widget build(BuildContext context) {
+    anchoPantalla = MediaQuery.of(context).size.width;
+
     // ************   Instanciar objeto userbloc ****************
     // of.(context) => contiene el ciclo  o estado de vida de la aplicacioon
     userBloc = BlocProvider.of(context);
@@ -51,17 +54,23 @@ class _InicioSesionState extends State<InicioSesion> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          GradientBack("", null),
+          GradientBack(
+            altura: null,
+          ),
           Column(
             // ====== Centrar elementos de manera vertical ======
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Bienvenido \n Esta es tu App de viajes",
-                  style: TextStyle(
-                      fontFamily: "Lato",
-                      fontSize: 37.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
+              Flexible(
+                  child: Container(
+                width: anchoPantalla,
+                child: Text("Bienvenido \n Esta es tu App de viajes",
+                    style: TextStyle(
+                        fontFamily: "Lato",
+                        fontSize: 37.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              )),
               ButtonGreen(
                 text: "Inicio Sesion Gmail",
                 onPressed: () {
