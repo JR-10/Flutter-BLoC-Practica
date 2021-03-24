@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 
 class FloatingActionButtonGreen extends StatefulWidget {
+  final IconData iconoData;
+  final VoidCallback onPresseded;
+
+  FloatingActionButtonGreen(
+      {Key key, @required this.iconoData, @required this.onPresseded})
+      : super(key: key);
+
   @override
-  State<StatefulWidget> createState() {
-    return _FloatingActionButtonGreen();
-  }
+  _FloatingActionButtonGreenState createState() =>
+      _FloatingActionButtonGreenState();
 }
 
-class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
+class _FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
+  /*
   void onPressedFav() {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text("Agregaste a tus Favoritos"),
     ));
   }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,10 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
       backgroundColor: Color(0xFF11DA53),
       mini: true,
       tooltip: "Fav",
-      onPressed: onPressedFav,
+      // onPressed: onPressedFav,
+      onPressed: widget.onPresseded,
       child: Icon(Icons.favorite_border),
+      heroTag: null,
     );
   }
 }

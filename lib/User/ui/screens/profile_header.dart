@@ -56,6 +56,7 @@ class ProfileHeader extends StatelessWidget {
 
       // datos de la sesion
       usuario = Usuario(
+          uid: snapshot.data.uid,
           name: snapshot.data.displayName,
           email: snapshot.data.email,
           photoUrl: snapshot.data.photoURL);
