@@ -2,6 +2,7 @@
 // La responsabilidad de este archivo es manejar todos los casos de uso del Usuario
 
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:platzi_bloc_practica/Place/model/place.dart';
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,6 +29,10 @@ class UserBloc implements Bloc {
   final _cloudFirestoreRepository = CloudFirestoreRepository();
   void updateUserData(Usuario usuario) =>
       _cloudFirestoreRepository.updateUserDataFirestore(usuario);
+
+  // 3 = Registrar Places en BD
+  Future<void> updatePlaceData(Place place) =>
+      _cloudFirestoreRepository.updatePlaceDate(place);
 
   // cerrar sesion Elecutar signOut
   signOut() {

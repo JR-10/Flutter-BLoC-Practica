@@ -1,8 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:platzi_bloc_practica/Place/model/place.dart';
 import 'package:platzi_bloc_practica/Place/ui/widgets/card_image.dart';
 import 'package:platzi_bloc_practica/Place/ui/widgets/title_input_location.dart';
+import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
 import 'package:platzi_bloc_practica/Widgets/button_purple.dart';
 import 'package:platzi_bloc_practica/Widgets/gradient_back.dart';
 import 'package:platzi_bloc_practica/Widgets/text_input.dart';
@@ -23,8 +27,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
+    // Declaracion del UserBloc
+    UserBloc userBloc = BlocProvider.of<UserBloc>(context);
+
     final _controllerTitlePlace = TextEditingController();
-    final _controllerDescriptionlace = TextEditingController();
+    final _controllerDescriptionPlace = TextEditingController();
 
     return Scaffold(
       body: Stack(
@@ -77,14 +84,14 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   child: TextInput(
                     hintText: "Title",
                     inputType: null,
-                    maxLines: 1,
+                    maxLines: 50,
                     controller: _controllerTitlePlace,
                   )),
               TextInput(
                 hintText: "Descrption",
                 inputType: TextInputType.multiline,
-                maxLines: 4,
-                controller: _controllerTitlePlace,
+                maxLines: 50,
+                controller: _controllerDescriptionPlace,
               ),
               Container(
                   margin: EdgeInsets.only(top: 20.0),
@@ -98,6 +105,18 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   onPressed: () {
                     // paso 1: Firebase Storage
                     // paso 2: Guardar Cloud Firestore
+                    userBloc
+                        .updatePlaceData(Place(
+                      name: _controllerTitlePlace
+                          .text, // obtener el titulo del texto del imput
+                      description: _controllerDescriptionPlace
+                          .text, // obtener la decripcion
+                      likes: 0,
+                    ))
+                        .whenComplete(() {
+                      print("TERMINO");
+                      Navigator.pop(context);
+                    });
                   },
                 ),
               ),
