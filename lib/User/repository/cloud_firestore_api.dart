@@ -50,6 +50,7 @@ class CloudFirestoreAPI {
         .add({
           'name': place.name,
           'description': place.description,
+          'urlImage': place.urlImage,
           'likes': place.likes,
           // 'userOwner': _userRef //reference
         })

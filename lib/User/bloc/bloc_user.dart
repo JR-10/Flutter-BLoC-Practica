@@ -19,6 +19,8 @@ class UserBloc implements Bloc {
   // validar el estado de la autenticacion
   Stream<User> get authStatus => streamFirebase;
 
+  // Metodo para obtener el Usuario Logueado actualmente
+
   // *******  Casos de Uso de la aplicacion **********
   // 1 = SignIn con Google
   Future<User> signIn() {

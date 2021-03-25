@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:platzi_bloc_practica/Place/ui/screens/add_place_screen.dart';
 import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
 import 'circle_button.dart';
@@ -13,6 +14,7 @@ class ButtonsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // instanciar la variable
+    final picker = ImagePicker();
     userBlock = BlocProvider.of(context);
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
@@ -24,12 +26,15 @@ class ButtonsBar extends StatelessWidget {
             // Adicionar u nuevo lugar
             CircleButton(
                 false, Icons.add, 40.0, Color.fromRGBO(255, 255, 255, 1), () {
-              File image;
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          AddPlaceScreen(image: image)));
+              picker
+                  .getImage(source: ImageSource.camera)
+                  .then((PickedFile image) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            AddPlaceScreen(image: File(image.path))));
+              }).catchError((onError) => print(onError));
             }),
             // Cerrar la sesion de App
             CircleButton(

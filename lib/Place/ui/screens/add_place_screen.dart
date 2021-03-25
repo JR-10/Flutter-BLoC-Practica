@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
@@ -71,7 +70,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   alignment: Alignment.center,
                   // -------- Foto ---------
                   child: CardImage(
-                    pathImage: "assets/img/beach_palm.jpeg",
+                    pathImage: widget.image.path,
                     iconoData: Icons.camera_alt,
                     ancho: 350.0,
                     alto: 250.0,
@@ -104,6 +103,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   buttonText: "Add Place",
                   onPressed: () {
                     // paso 1: Firebase Storage
+                    // Obtener el id del usuario
                     // paso 2: Guardar Cloud Firestore
                     userBloc
                         .updatePlaceData(Place(
