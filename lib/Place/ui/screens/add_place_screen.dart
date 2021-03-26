@@ -105,33 +105,40 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   buttonText: "Add Place",
                   onPressed: () {
                     // paso 1: Firebase Storage
-                    print("USUARIO EN SESION: ${widget.uidusuario}");
                     // Obtener el id del usuario
-                    String path = "${DateTime.now().toString()}.jpg";
-                    userBloc
-                        .uploadFile(path, widget.image)
-                        .then((firebase_storage.UploadTask uploadTask) {
-                      uploadTask.then((firebase_storage.TaskSnapshot snapshot) {
-                        snapshot.ref.getDownloadURL().then((urlImage) {
-                          print("URLIMAGE: $urlImage");
+                    print("USUARIO EN SESION: ${widget.uidusuario}");
+                    String uid = widget.uidusuario;
+                    // --------- Validacion del Usuario uid --------
+                    if (uid != null) {
+                      // ----- nombre de la foto como se va a guardar y la ruta con la carpeta del user uid
+                      String path = "$uid/${DateTime.now().toString()}.jpg";
+                      // -------- Llamado al auserBloc para subir el archivo  ----------
+                      userBloc
+                          .uploadFile(path, widget.image)
+                          .then((firebase_storage.UploadTask uploadTask) {
+                        uploadTask
+                            .then((firebase_storage.TaskSnapshot snapshot) {
+                          snapshot.ref.getDownloadURL().then((urlImage) {
+                            print("URLIMAGE: $urlImage");
 
-                          // paso 2: Guardar Cloud Firestore
-                          userBloc
-                              .updatePlaceData(Place(
-                            name: _controllerTitlePlace
-                                .text, // obtener el titulo del texto del imput
-                            description: _controllerDescriptionPlace
-                                .text, // obtener la decripcion
-                            urlImage: urlImage,
-                            likes: 0,
-                          ))
-                              .whenComplete(() {
-                            print("TERMINO");
-                            Navigator.pop(context);
+                            // paso 2: Guardar Cloud Firestore
+                            userBloc
+                                .updatePlaceData(Place(
+                              name: _controllerTitlePlace
+                                  .text, // obtener el titulo del texto del imput
+                              description: _controllerDescriptionPlace
+                                  .text, // obtener la decripcion
+                              urlImage: urlImage,
+                              likes: 0,
+                            ))
+                                .whenComplete(() {
+                              print("TERMINO");
+                              Navigator.pop(context);
+                            });
                           });
                         });
                       });
-                    });
+                    }
                   },
                 ),
               ),
