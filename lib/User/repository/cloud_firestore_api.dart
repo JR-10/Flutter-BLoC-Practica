@@ -46,16 +46,23 @@ class CloudFirestoreAPI {
     // Con esta linea el firebase asigna el id automatico
     CollectionReference refPlaces = _db.collection(PLACES);
     print('Valor de la referencia: ${refPlaces.firestore}');
-    await refPlaces
-        .add({
-          'name': place.name,
-          'description': place.description,
-          'urlImage': place.urlImage,
-          'likes': place.likes,
-          'userOwner': "$USUARIOS/${place.userOwner.uid}" //reference
-        })
-        .then((docRef) => {print('Documento creado con ID:  ${docRef.id}')})
-        .catchError(
-            (error) => {print('Error al agregar el documento:  $error')});
+    await refPlaces.add({
+      'name': place.name,
+      'description': place.description,
+      'urlImage': place.urlImage,
+      'likes': place.likes,
+      // 'userOwner': "$USUARIOS/${place.userOwner.uid}" //  codigo inicial
+      'userOwner': _db
+          .doc("$USUARIOS/${place.userOwner.uid}") // asignar la referenciacion
+    }).then((DocumentReference dr) {
+      print('Valor del id del place creado: ${dr.id}');
+      // Obtener la data del usuario
+      DocumentReference refUsuarios =
+          _db.collection(USUARIOS).doc(place.userOwner.uid);
+      refUsuarios.update({
+        // agregar valor al array de places (haciendo push)
+        'myPlaces': FieldValue.arrayUnion([_db.doc("$PLACES/${dr.id}")])
+      });
+    }).catchError((error) => {print('Error al agregar el documento:  $error')});
   }
 }
