@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
@@ -14,8 +15,9 @@ import 'package:platzi_bloc_practica/Widgets/title_header.dart';
 class AddPlaceScreen extends StatefulWidget {
   // Declaracion de variable para recibir objeto de tipo File
   File image;
+  String uidusuario;
 
-  AddPlaceScreen({Key key, this.image}) : super(key: key);
+  AddPlaceScreen({Key key, this.image, this.uidusuario}) : super(key: key);
 
   @override
   _AddPlaceScreenState createState() => _AddPlaceScreenState();
@@ -103,19 +105,32 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   buttonText: "Add Place",
                   onPressed: () {
                     // paso 1: Firebase Storage
+                    print("USUARIO EN SESION: ${widget.uidusuario}");
                     // Obtener el id del usuario
-                    // paso 2: Guardar Cloud Firestore
+                    String path = "${DateTime.now().toString()}.jpg";
                     userBloc
-                        .updatePlaceData(Place(
-                      name: _controllerTitlePlace
-                          .text, // obtener el titulo del texto del imput
-                      description: _controllerDescriptionPlace
-                          .text, // obtener la decripcion
-                      likes: 0,
-                    ))
-                        .whenComplete(() {
-                      print("TERMINO");
-                      Navigator.pop(context);
+                        .uploadFile(path, widget.image)
+                        .then((firebase_storage.UploadTask uploadTask) {
+                      uploadTask.then((firebase_storage.TaskSnapshot snapshot) {
+                        snapshot.ref.getDownloadURL().then((urlImage) {
+                          print("URLIMAGE: $urlImage");
+
+                          // paso 2: Guardar Cloud Firestore
+                          userBloc
+                              .updatePlaceData(Place(
+                            name: _controllerTitlePlace
+                                .text, // obtener el titulo del texto del imput
+                            description: _controllerDescriptionPlace
+                                .text, // obtener la decripcion
+                            urlImage: urlImage,
+                            likes: 0,
+                          ))
+                              .whenComplete(() {
+                            print("TERMINO");
+                            Navigator.pop(context);
+                          });
+                        });
+                      });
                     });
                   },
                 ),

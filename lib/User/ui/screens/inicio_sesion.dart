@@ -42,6 +42,7 @@ class _InicioSesionState extends State<InicioSesion> {
           return singInGoogleUI();
           // si trae la data correcta de la sesion permite ingresar a la vista de home
         } else {
+          print("Valor de la data del usuario en sesion: ${snapshot.data.uid}");
           return PlatziTripsCupertino();
         }
       },

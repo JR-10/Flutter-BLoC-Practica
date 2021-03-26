@@ -1,8 +1,12 @@
 // desde este archivo se hara el llamado a las repository
 // La responsabilidad de este archivo es manejar todos los casos de uso del Usuario
 
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
+import 'package:platzi_bloc_practica/Place/repository/firebase_storage_repository.dart';
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +39,11 @@ class UserBloc implements Bloc {
   // 3 = Registrar Places en BD
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceDate(place);
+
+  // 4 =
+  final _firebaseStoreRepository = FirebaseStorageRepository();
+  Future<UploadTask> uploadFile(String path, File image) =>
+      _firebaseStoreRepository.uploadFile(path, image);
 
   // cerrar sesion Elecutar signOut
   signOut() {

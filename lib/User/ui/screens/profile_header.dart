@@ -52,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
       );
     } else {
       print("Logueado");
-      print(snapshot.data);
+      print("valor del Snapshot Data:  ${snapshot.data}");
 
       // datos de la sesion
       usuario = Usuario(
@@ -77,7 +77,7 @@ class ProfileHeader extends StatelessWidget {
               children: <Widget>[title],
             ),
             UserInfo(usuario),
-            ButtonsBar()
+            ButtonsBar(usuario)
           ],
         ),
       );
