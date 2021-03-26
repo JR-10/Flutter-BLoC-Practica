@@ -11,10 +11,10 @@ import 'circle_button.dart';
 class ButtonsBar extends StatelessWidget {
   // Declaracion de variable para el acceso al BlocUser y por consiguiente al SignOut
   UserBloc userBlock;
+  // ----- Variable para obtener el usuario de la sesion -----
+  Usuario usuarioSesion;
 
-  Usuario usuario;
-
-  ButtonsBar(@required this.usuario);
+  ButtonsBar(@required this.usuarioSesion);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,8 @@ class ButtonsBar extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => AddPlaceScreen(
-                            uidusuario: usuario.uid, image: File(image.path))));
+                            usuarioSesion: usuarioSesion,
+                            image: File(image.path))));
               }).catchError((onError) => print(onError));
             }),
             // Cerrar la sesion de App

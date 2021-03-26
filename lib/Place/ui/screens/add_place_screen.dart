@@ -7,6 +7,7 @@ import 'package:platzi_bloc_practica/Place/model/place.dart';
 import 'package:platzi_bloc_practica/Place/ui/widgets/card_image.dart';
 import 'package:platzi_bloc_practica/Place/ui/widgets/title_input_location.dart';
 import 'package:platzi_bloc_practica/User/bloc/bloc_user.dart';
+import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/Widgets/button_purple.dart';
 import 'package:platzi_bloc_practica/Widgets/gradient_back.dart';
 import 'package:platzi_bloc_practica/Widgets/text_input.dart';
@@ -15,9 +16,9 @@ import 'package:platzi_bloc_practica/Widgets/title_header.dart';
 class AddPlaceScreen extends StatefulWidget {
   // Declaracion de variable para recibir objeto de tipo File
   File image;
-  String uidusuario;
+  Usuario usuarioSesion;
 
-  AddPlaceScreen({Key key, this.image, this.uidusuario}) : super(key: key);
+  AddPlaceScreen({Key key, this.image, this.usuarioSesion}) : super(key: key);
 
   @override
   _AddPlaceScreenState createState() => _AddPlaceScreenState();
@@ -106,8 +107,10 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                   onPressed: () {
                     // paso 1: Firebase Storage
                     // Obtener el id del usuario
-                    print("USUARIO EN SESION: ${widget.uidusuario}");
-                    String uid = widget.uidusuario;
+                    print("USUARIO EN SESION: ${widget.usuarioSesion.uid}");
+                    Usuario userSesion = widget.usuarioSesion;
+
+                    String uid = userSesion.uid;
                     // --------- Validacion del Usuario uid --------
                     if (uid != null) {
                       // ----- nombre de la foto como se va a guardar y la ruta con la carpeta del user uid
@@ -129,7 +132,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                               description: _controllerDescriptionPlace
                                   .text, // obtener la decripcion
                               urlImage: urlImage,
-                              likes: 0,
+                              likes: 0, userOwner: userSesion,
                             ))
                                 .whenComplete(() {
                               print("TERMINO");

@@ -52,7 +52,7 @@ class CloudFirestoreAPI {
           'description': place.description,
           'urlImage': place.urlImage,
           'likes': place.likes,
-          // 'userOwner': _userRef //reference
+          'userOwner': "$USUARIOS/${place.userOwner.uid}" //reference
         })
         .then((docRef) => {print('Documento creado con ID:  ${docRef.id}')})
         .catchError(
