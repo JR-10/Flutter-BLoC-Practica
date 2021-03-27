@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
@@ -10,6 +11,7 @@ import 'package:platzi_bloc_practica/Place/repository/firebase_storage_repositor
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:platzi_bloc_practica/User/repository/cloud_firestore_api.dart';
 import 'package:platzi_bloc_practica/User/repository/cloud_firestore_repository.dart';
 
 class UserBloc implements Bloc {
@@ -22,8 +24,6 @@ class UserBloc implements Bloc {
 
   // validar el estado de la autenticacion
   Stream<User> get authStatus => streamFirebase;
-
-  // Metodo para obtener el Usuario Logueado actualmente
 
   // *******  Casos de Uso de la aplicacion **********
   // 1 = SignIn con Google
@@ -39,6 +39,14 @@ class UserBloc implements Bloc {
   // 3 = Registrar Places en BD
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceDate(place);
+
+  // Stream para mantener la escucha de los places y mantenerlos actualizados
+  Stream<QuerySnapshot> placesListStream = FirebaseFirestore.instance
+      .collection(CloudFirestoreAPI().PLACES)
+      .snapshots();
+
+  // Stream para acceder al stream anterior
+  Stream<QuerySnapshot> get placesStream => placesListStream;
 
   // 4 =
   final _firebaseStoreRepository = FirebaseStorageRepository();
