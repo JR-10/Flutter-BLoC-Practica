@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
+import 'package:platzi_bloc_practica/User/ui/widgets/profile_place.dart';
 
 class CloudFirestoreAPI {
   // Decalaracion de Variables constantes (Mayusculas) para las colleciones
@@ -64,5 +65,23 @@ class CloudFirestoreAPI {
         'myPlaces': FieldValue.arrayUnion([_db.doc("$PLACES/${dr.id}")])
       });
     }).catchError((error) => {print('Error al agregar el documento:  $error')});
+  }
+
+  // *************** Devolver una lista de profiles ************
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
+    // Lista a devolver
+    List<ProfilePlace> profilePlaces = [];
+
+    placesListSnapshot.forEach((p) {
+      profilePlaces.add(ProfilePlace(Place(
+          name: p.data()['name'],
+          description: p.data()['description'],
+          urlImage: p.data()['urlImage'],
+          likes: p.data()['likes']
+          // userOwner: p.data()['userOwner']
+          )));
+    });
+
+    return profilePlaces;
   }
 }

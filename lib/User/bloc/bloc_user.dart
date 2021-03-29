@@ -13,6 +13,7 @@ import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:platzi_bloc_practica/User/repository/cloud_firestore_api.dart';
 import 'package:platzi_bloc_practica/User/repository/cloud_firestore_repository.dart';
+import 'package:platzi_bloc_practica/User/ui/widgets/profile_place.dart';
 
 class UserBloc implements Bloc {
   // ******* declaracion de variable para llamar al metodo SignIn *******
@@ -40,13 +41,25 @@ class UserBloc implements Bloc {
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceDate(place);
 
-  // Stream para mantener la escucha de los places y mantenerlos actualizados
+  // Stream para mantener la escucha de los places alamcenados en la BD y mantenerlos actualizados cuando se haga un cambio
   Stream<QuerySnapshot> placesListStream = FirebaseFirestore.instance
       .collection(CloudFirestoreAPI().PLACES)
       .snapshots();
 
   // Stream para acceder al stream anterior
   Stream<QuerySnapshot> get placesStream => placesListStream;
+
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
+
+  // Metodo para realizar un filtrado de datos
+  Stream<QuerySnapshot> myPLacesListStream(String uid) => FirebaseFirestore
+      .instance
+      .collection(CloudFirestoreAPI().PLACES)
+      .where("userOwner",
+          isEqualTo: FirebaseFirestore.instance
+              .doc("${CloudFirestoreAPI().USUARIOS}/${uid}"))
+      .snapshots();
 
   // 4 =
   final _firebaseStoreRepository = FirebaseStorageRepository();
