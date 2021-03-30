@@ -4,7 +4,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
+import 'package:platzi_bloc_practica/Place/ui/widgets/card_image.dart';
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/ui/widgets/profile_place.dart';
 
@@ -68,7 +70,7 @@ class CloudFirestoreAPI {
   }
 
   // *************** Devolver una lista de profiles ************
-  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
+  List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) {
     // Lista a devolver
     List<ProfilePlace> profilePlaces = [];
 
@@ -83,5 +85,42 @@ class CloudFirestoreAPI {
     });
 
     return profilePlaces;
+  }
+
+  // Devolver lista de cardImage
+  List<CardImage> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
+    // lista a devolver
+    List<CardImage> placesCard = [];
+
+    double ancho = 300.0;
+    double alto = 250.0;
+    double leftDerecho = 20.0;
+    IconData iconoData = Icons.favorite_border;
+
+    placesListSnapshot.forEach((element) {
+      print('VALOR IMPRESO DE ELEMENT: $element.');
+      placesCard.add(CardImage(
+        pathImage: element.data()["urlImage"],
+        ancho: ancho,
+        alto: alto,
+        leftDerecho: leftDerecho,
+        onPressedFabIcon: () {
+          // llamar al metodo de likes
+          likePlace(element.id);
+        },
+        iconoData: iconoData,
+      ));
+    });
+
+    return placesCard;
+  }
+
+  // Metodo para maenejar los Likes
+  Future likePlace(String idPlace) async {
+    print('Valor del ID obtenido: $idPlace');
+    await _db.collection(PLACES).doc(idPlace).get().then((DocumentSnapshot ds) {
+      int likes = ds.data()["likes"];
+      _db.collection(PLACES).doc(idPlace).update({'likes': likes + 1});
+    });
   }
 }

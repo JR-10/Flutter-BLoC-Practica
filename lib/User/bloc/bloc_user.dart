@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_bloc_practica/Place/model/place.dart';
 import 'package:platzi_bloc_practica/Place/repository/firebase_storage_repository.dart';
+import 'package:platzi_bloc_practica/Place/ui/widgets/card_image.dart';
 import 'package:platzi_bloc_practica/User/model/usuario.dart';
 import 'package:platzi_bloc_practica/User/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +50,8 @@ class UserBloc implements Bloc {
   // Stream para acceder al stream anterior
   Stream<QuerySnapshot> get placesStream => placesListStream;
 
-  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+  // revisar codigo
+  List<CardImage> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
 
   // Metodo para realizar un filtrado de datos
@@ -60,6 +62,9 @@ class UserBloc implements Bloc {
           isEqualTo: FirebaseFirestore.instance
               .doc("${CloudFirestoreAPI().USUARIOS}/${uid}"))
       .snapshots();
+
+  List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFirestoreRepository.buildMyPlaces(placesListSnapshot);
 
   // 4 =
   final _firebaseStoreRepository = FirebaseStorageRepository();
